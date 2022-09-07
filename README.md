@@ -165,10 +165,10 @@ async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
   }
 ```
 **Code Execution Workflow**
-  1. Have your code execute the **createTransaction** function by performing the following two steps: 
-    - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
-    - Add the following lines of code to invoke the createTransaction function. Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
-    - Replace yourname with your Full name e.g "First_Last"
+  1. Have your code execute the **createTransaction** function by performing the following two steps:
+   - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
+   - Add the following lines of code to invoke the createTransaction function. Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
+   - Replace yourname with your Full name e.g "First_Last"
 
 ```
 createTransaction("yourname", "TTTT", depositVaultId, omnibusId); // replace [yourname], depositVaultId & omnibusId with your values
@@ -292,10 +292,10 @@ async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
 
 ```
   2. Have your code execute the **createTransaction** function by performing the following two steps:
-    - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
-    - Add the following line of code to invoke the createTransaction function. 
-    - Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
-    - Replace yourname with your Full name e.g "First_Last".
+  - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
+  - Add the following line of code to invoke the createTransaction function. 
+  - Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
+  - Replace yourname with your Full name e.g "First_Last".
 ```
 createTransaction("yourname", "ETH_TEST", depositVaultId, omnibusId); // replace yourname, depositVaultId & omnibusId with your values
 ```
