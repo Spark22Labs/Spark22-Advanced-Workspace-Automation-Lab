@@ -200,7 +200,7 @@ For the purpose of this exercise, a Gas Station wallet was created in advance an
   1. Have your code execute the below functions to retrieve your Gas Station configuration, and also configure it, by following the below steps:
 
 - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
-- Add the following following function code blocks to your **APILABSPARK22.js** file. 
+- Add the following function code blocks to your **APILABSPARK22.js** file. 
 ```
 async function getGasStationInfo(){
   const gasStationInfo = await fireblocks.getGasStationInfo();
