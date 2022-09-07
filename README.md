@@ -105,7 +105,7 @@ node APILABSPARK22.js
 
 **Manual Asset Wallet Creation**
   1. The **createVaultAsset** function is defined with two parameters: **vaultId** and **vaultAsset**.
-  2. Have your code execute the **createVaultAsset** function by updating your **APILABSPARK22.js** file in these two steps: 
+  2. Have your code execute the **createVaultAsset** function by updating your **APILABSPARK22.js** file in these steps: 
       - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
       - Add the following lines of code while to invoke the function twice for that vault, creating "ETH_TEST" and "TTTT". Replace vaultId with the id string from the response received by the **createVaultAccount** function above.
 
@@ -165,10 +165,10 @@ async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
   }
 ```
 **Code Execution Workflow**
-  1. Have your code execute the **createTransaction** function by performing the following two steps:
-   - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
-   - Add the following lines of code to invoke the createTransaction function. Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
-   - Replace yourname with your Full name e.g "First_Last"
+  1. Have your code execute the **createTransaction** function by performing the following steps:
+  - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
+  - Add the following lines of code to invoke the createTransaction function. Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
+  - Replace yourname with your Full name e.g "First_Last"
 
 ```
 createTransaction("yourname", "TTTT", depositVaultId, omnibusId); // replace [yourname], depositVaultId & omnibusId with your values
@@ -198,8 +198,9 @@ For the purpose of this exercise, a Gas Station wallet was created in advance an
 
 **Code Execution Workflow**
   1. Have your code execute the below functions to retrieve your Gas Station configuration, and also configure it, by following the below steps:
-  - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
-  - Add the following following function code blocks to your **APILABSPARK22.js** file. 
+
+- Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
+- Add the following following function code blocks to your **APILABSPARK22.js** file. 
 ```
 async function getGasStationInfo(){
   const gasStationInfo = await fireblocks.getGasStationInfo();
@@ -242,7 +243,7 @@ async function setAutoFuel(vaultAccountId, status){
 ```
   - **Note:** Set status to 'true' in order to enable, and to 'false' in order to disable.
 
-  6. Have your code execute the **setAutoFuel** function by performing the following two steps: 
+  6. Have your code execute the **setAutoFuel** function by performing the following steps: 
   - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
   - Add the below line of code to your file where you place in the vaultAccountId parameter, the ID of one of the end-client deposit vault account IDs as the argument and for the status boolean parameter, replace with either true or false argument based on the value you wish to test. By default the status of AutoFuel is set to false.
 ```
@@ -291,7 +292,7 @@ async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
   }
 
 ```
-  2. Have your code execute the **createTransaction** function by performing the following two steps:
+  2. Have your code execute the **createTransaction** function by performing the following steps:
   - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
   - Add the following line of code to invoke the createTransaction function. 
   - Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
