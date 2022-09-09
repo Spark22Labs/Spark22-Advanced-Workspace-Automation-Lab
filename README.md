@@ -28,6 +28,7 @@ Our Help Center article on vault structures can be found [here](https://support.
 ## Lab Workflow
 ### Step 1 - Initialize project:
 **Project Directory:** Create a project directory by running the following set of commands in the terminal of your Integrated Development Environment (IDE) or in your text editor:
+
 ```
 cd ~/<someplace>
 mkdir spark22-Omnibus-lab
@@ -40,7 +41,7 @@ In the IDE:
   1. Create a new Javascript file and name it: **APILABSPARK22.js**;
   2. Copy the following SDK Initialization snippet into this file:
 
-```
+```javascript
 const FireblocksSDK = require("fireblocks-sdk").FireblocksSDK;
 const fs = require('fs');
 const path = require('path');
@@ -48,20 +49,23 @@ const apiKey = "Your API Key"
 const apiSecret = fs.readFileSync(path.resolve(__dirname, "/fireblocks_secret.key"), "utf8");;
 const fireblocks = new FireblocksSDK(apiSecret, apiKey);
 ```
+
 **In the code block above, replace the values in each of the following variables:**
   1. In the variable 'apiKey', update your API key;
-  2. In the variable 'apiSecret', update the full path to your Secret Key (ending with /fireblocks_secret.key)**
+  2. In the variable 'apiSecret', update the full path to your Secret Key (ending with /fireblocks_secret.key)
 
 Save the file in the spark22-API-Omnibus-lab directory.
 
 ### Step 2A - Manual Setup of Vault Account structure and asset wallets:
+
 As with real life scenarios, your end-clients will need their vault accounts and specific asset wallet addresses for their deposits. 
 In this step you will create this structure of vault accounts and underlying wallet assets for ETH_TEST gas asset and TTTT Token used for our tests.
 You will also need a Treasury vault account called Omnibus, as described in the overview section.
 The following code utilizes SDK functions that will facilitate the above. 
 
 - Add the following code block to your **APILABSPARK22.js** file.
-``` 
+
+```javascript
 async function createVaultAccount(name){
   let vault = await fireblocks.createVaultAccount(name);
     console.log(JSON.stringify(vault, null, 2));
@@ -71,26 +75,30 @@ async function createVaultAsset(vaultId, asset){
   let vaultAsset = await fireblocks.createVaultAsset(vaultId, asset);
     console.log(JSON.stringify(vaultAsset, null, 2));
 }
-
 ```
+
 **Manual Vault Account Structure creation**
   1. Execution of each of these functions is performed by specifying the function's name within your code.
   2. Each function includes required parameters for which it is defined to recieve as inputs. These parameters are specified within the parentheses ().
   3. The **createVaultAccount** function is defined with one parameter, **name** while the **createVaultAsset** function is defined with two parameters.
   4. For the purpose of this exercise, the **name** parameter of this vault account should be Spark22-[yourname]-1 (replace the 'yourname' string with your name).
   5. To have your code execute the **createVaultAccount** function by adding the following line of code to your **APILABSPARK22.js** file, and pasting the name defined in item 4 in the parentheses:
-```
+
+```javascript
 createVaultAccount("Spark22-[yourname]-1");
 ```
+
   6. Save the file. 
   7. Open terminal and navigate to the directory where the file is saved (cd ~/folder name).
   8. Run the following command:
 
-```
+```shell
 node APILABSPARK22.js
 ```
+
   9. The **createVaultAccount** function returns a JSON structured like this:
-```
+  
+```json
 {
   "id": "string",
   "name": "string",
@@ -98,8 +106,8 @@ node APILABSPARK22.js
   assets: [], // will show a list of assets once you create an Vault asset
   autoFuel: false // note this boolean will be used later
 }
-
 ```
+
 **Note:** "id": "string" is a key-value pair. The "string" value here is the vault account id that will be used as a parameter for the **createVaultAsset** function. Document the Id of each Vault account created, as it will be a required argument in other functions.
 
 
@@ -109,19 +117,21 @@ node APILABSPARK22.js
       - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
       - Add the following lines of code while to invoke the function twice for that vault, creating "ETH_TEST" and "TTTT". Replace vaultId with the id string from the response received by the **createVaultAccount** function above.
 
-```
+```javascript
 createVaultAsset("Get the ID of the new vault account created above", "ETH_TEST");
 createVaultAsset("Get the ID of the new vault account created above", "TTTT");
-
 ```
+
   3. Save the file. 
   4. In your terminal run:
 
-```
+```shell
 node APILABSPARK22.js
 ```
+
   5. The createVaultAsset function returns a JSON structured like this:
-```
+
+```json
 {
   "id": "string",
   "address": "string",
@@ -129,7 +139,9 @@ node APILABSPARK22.js
   "tag": "string"
 }
 ```
+
   6. Repeat the 2 **Manual** processes invoking both the createVaultAccount and createVaultAsset as articulated above. You should create an overall of 3 end-client deposit vault accounts, as well as 1 Omnibus vault, all of which will contain an ETH_TEST and TTTT Token asset wallets:
+
   - Much like the already existing end-client deposit vault account, the two additional ones, should be similarly named “Spark22-[yourname]-2”, “Spark22-[yourname]-3”
   - The Omnibus vault account should be named “Spark22-[yourname]-omnibus
   - Consult your Fireblocks Lab Partners if needed
@@ -145,7 +157,7 @@ node APILABSPARK22.js
 ### Step 4A - Manual Sweeping to pool end-client deposits into your omnibus vault:
 - Create 3 transactions in order to move the funds from the deposit accounts to the omnibus vault account. This is called a sweep operation. Add the following code block to your **APILABSPARK22.js** file. The effect will be a transfer of 2 TTTT tokens from each of your end client's vault accounts to your omnibus vault account.
 
-```
+```javascript
 async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
     const payload = {
       assetId: assetId,
@@ -164,27 +176,33 @@ async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
     console.log(JSON.stringify(result, null, 2));
   }
 ```
+
 **Code Execution Workflow**
   1. Have your code execute the **createTransaction** function by performing the following steps:
   - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
   - Add the following lines of code to invoke the createTransaction function. Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
   - Replace yourname with your Full name e.g "First_Last"
 
-```
+```javascript
 createTransaction("yourname", "TTTT", depositVaultId, omnibusId); // replace [yourname], depositVaultId & omnibusId with your values
 ```
+
   2. Save the file. 
   3. In your terminal run:
+
 ```
 node APILABSPARK22.js
 ```
+
   4. The createTransaction function returns a JSON structured like this:
-```
+
+```json
 {
   "id": "string",
   "status": "string"
 }
 ```
+
   5. Repeat this step 3 times, each time replacing the depositVaultId account id, in order to manually complete the sweep.
 
 ### Step 4B - Automation Challenge for Advanced Programmers: 
@@ -201,7 +219,8 @@ For the purpose of this exercise, a Gas Station wallet was created in advance an
 
 - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
 - Add the following function code blocks to your **APILABSPARK22.js** file. 
-```
+
+```javascript
 async function getGasStationInfo(){
   const gasStationInfo = await fireblocks.getGasStationInfo();
     console.log(JSON.stringify(gasStationInfo, null, 2));
@@ -211,8 +230,10 @@ async function setGasStationConf(gasThreshold, gasCap, assetId){
     console.log(JSON.stringify(gasStation, null, 2));
 }
 ```
+
 The getGasStationInfo function returns a JSON structured like this:
-```
+
+```json
 {
   "balance": {
     "ETH_TEST": "string"
@@ -224,36 +245,47 @@ The getGasStationInfo function returns a JSON structured like this:
   }
 }
 ```
+
   2. Add either of the below lines of code to your **APILABSPARK22.js** file based on the function you wish to invoke. 
   - Replace the gasThreshold ("0.005") & gasCap ("0.01") parameters with the values you wish to test. Asset Id, "ETH_TEST" remains a constant, whereas in Ethereum's mainnet blockchain you would be using "ETH" instead.
-```
+
+```javascript
 getGasStationInfo();
 setGasStationConf("0.005", "0.01", "", "ETH_TEST");
 ```
+
   3. Save the file. 
   4. In your terminal run:
+
 ```
 node APILABSPARK22.js
 ```
+
   5. Enable Gas Station autoFuel flag for the vault accounts you wish to sweep, by adding the following setAutoFuel() function code block to your **APILABSPARK22.js** file:
-```
+
+```javascript
 async function setAutoFuel(vaultAccountId, status){
   const setAutofuel = await fireblocks.setAutoFuel(vaultAccountId,status);
 }
 ```
+
   - **Note:** Set status to 'true' in order to enable, and to 'false' in order to disable.
 
   6. Have your code execute the **setAutoFuel** function by performing the following steps: 
   - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row
   - Add the below line of code to your file where you place in the vaultAccountId parameter, the ID of one of the end-client deposit vault account IDs as the argument and for the status boolean parameter, replace with either true or false argument based on the value you wish to test. By default the status of AutoFuel is set to false.
-```
+
+```javascript
 setAutoFuel("Spark22-[yourname]-1 Id", [true or false]);
 ```
+
   7. Save the file. 
   8. In your terminal run:
+
 ```
 node APILABSPARK22.js
 ```
+
 ### Step 5B - Automation Challenge for Advanced Programmers:
  - Save lines of code and update the createVault loop coded in the first challenge in this exercise, to include the autoFuel parameter enabling it upon the creation of the vault account. Reference see [here](https://docs.fireblocks.com/api/?javascript#create-a-new-vault-account).
 
@@ -272,7 +304,7 @@ In order to simulate the Auto Fuel operation, we need to empty the ETH_TEST bala
 To Transfer all ETH_TEST asset balance from “Spark22-[yourname]-1” to omnibus vault account using createTransaction():
   1. Add the following function code block to your **APILABSPARK22.js** file.
 
-```
+```javascript
 async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
     const payload = {
       assetId: "ETH_TEST",
@@ -290,28 +322,34 @@ async function createTransaction(yourname, assetId, depositVaultId, omnibusId){
     const result = await fireblocks.createTransaction(payload);
     console.log(JSON.stringify(result, null, 2));
   }
-
 ```
+
   2. Have your code execute the **createTransaction** function by performing the following steps:
   - Comment out the execution of the prior functions you've called in the above steps by adding // (two forward slashes) in the beginning of the row.
   - Add the following line of code to invoke the createTransaction function. 
   - Replace depositVaultId & omnibusId with the id noted from the response received by the **createVaultAccount** function.
   - Replace yourname with your Full name e.g "First_Last".
-```
+
+```javascript
 createTransaction("yourname", "ETH_TEST", depositVaultId, omnibusId); // replace yourname, depositVaultId & omnibusId with your values
 ```
+
   3. Save the file.
   4. In your terminal run:
+
 ```
 node APILABSPARK22.js
 ```
+
   5. The createTransaction function returns a JSON structured like this:
-```
+
+```json
 {
   "id": "string",
   "status": "string"
 }
-```  
+```
+
   6. Watch the Gas Station service trigger an automatic fuel of your “Spark22-[yourname]-1” with “ETH_TEST” amount matching the Gas Cap setting of your Gas Station
 
 # Success!
