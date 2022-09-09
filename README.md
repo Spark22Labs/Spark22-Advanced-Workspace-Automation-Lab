@@ -102,9 +102,9 @@ node APILABSPARK22.js
 {
   "id": "string",
   "name": "string",
-  hiddenOnUI: false, // note this boolean tells if the vault remains visible or becomes hidden in the UI
-  assets: [], // will show a list of assets once you create an Vault asset
-  autoFuel: false // note this boolean will be used later
+  "hiddenOnUI": false, // note this boolean tells if the vault remains visible or becomes hidden in the UI
+  "assets": [], // will show a list of assets once you create an Vault asset
+  "autoFuel": false // note this boolean will be used later
 }
 ```
 
